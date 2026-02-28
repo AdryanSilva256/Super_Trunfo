@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+int main() {
+    int tabuleiro[10][10];
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            tabuleiro[i][j] = 0;
+        }
+    }
+
+    for (int i = 0; i < 3; i++) tabuleiro[1 + i][1 + i] = 3;
+    for (int j = 0; j < 3; j++) tabuleiro[8][1 + j] = 3;
+
+    int cone[5][5] = {0};
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (j >= 2 - i && j <= 2 + i) cone[i][j] = 1;
+        }
+    }
+
+    int cruz[5][5] = {0};
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (i == 2 || j == 2) cruz[i][j] = 1;
+        }
+    }
+
+    int octaedro[5][5] = {0};
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int dist = (i > 2 ? i - 2 : 2 - i) + (j > 2 ? j - 2 : 2 - j);
+            if (dist <= 2) octaedro[i][j] = 1;
+        }
+    }
+
+    int origens[3][2] = {{1, 4}, {5, 2}, {6, 6}};
+    int (*habilidades[3])[5] = {cone, cruz, octaedro};
+
+    for (int h = 0; h < 3; h++) {
+        int oL = origens[h][0];
+        int oC = origens[h][1];
+        
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                int tL = oL + i - 2;
+                int tC = oC + j - 2;
+
+                if (tL >= 0 && tL < 10 && tC >= 0 && tC < 10) {
+                    if (habilidades[h][i][j] == 1 && tabuleiro[tL][tC] == 0) {
+                        tabuleiro[tL][tC] = 5;
+                    }
+                }
+            }
+        }
+    }
+
+    printf("    0 1 2 3 4 5 6 7 8 9\n");
+    printf("    -------------------\n");
+    for (int i = 0; i < 10; i++) {
+        printf("%d | ", i);
+        for (int j = 0; j < 10; j++) {
+            if (tabuleiro[i][j] == 3) printf("N ");
+            else if (tabuleiro[i][j] == 5) printf("H ");
+            else printf(". ");
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
