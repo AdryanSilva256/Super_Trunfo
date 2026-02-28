@@ -32,7 +32,6 @@ int main() {
     printf("Opção: ");
     scanf("%d", &escolha2);
 
-    // Validação simples de duplicata
     if (escolha1 == escolha2) {
         printf("\nERRO: Você escolheu o mesmo atributo duas vezes. Reinicie o jogo.\n");
         return 0;
@@ -59,7 +58,6 @@ int main() {
     }
 
     // --- CÁLCULO DA SOMA (Tratando a Densidade) ---
-    // Se for densidade, usamos o inverso para a soma, pois menor é melhor
     float soma1 = (escolha1 == 5 ? 1/valor1_attr1 : valor1_attr1) + (escolha2 == 5 ? 1/valor1_attr2 : valor1_attr2);
     float soma2 = (escolha1 == 5 ? 1/valor2_attr1 : valor2_attr1) + (escolha2 == 5 ? 1/valor2_attr2 : valor2_attr2);
 
@@ -70,7 +68,7 @@ int main() {
     printf("Atributo 2 (%s): %.2f vs %.2f\n", label2, valor1_attr2, valor2_attr2);
     printf("SOMA TOTAL: %.2f vs %.2f\n", soma1, soma2);
 
-    // Determinação do Vencedor com Operador Ternário e If-Else
+    // Determinação do Vencedor com Operadore
     if (soma1 > soma2) {
         printf("\nRESULTADO FINAL: %s VENCEU!\n", nome1);
     } else if (soma2 > soma1) {
