@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main() {
+    int tabuleiro[10][10];
+    int tam = 3;
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            tabuleiro[i][j] = 0;
+        }
+    }
+
+    int lH = 1, cH = 1;
+    for (int j = 0; j < tam; j++) {
+        tabuleiro[lH][cH + j] = 3;
+    }
+
+    int lV = 4, cV = 1;
+    for (int i = 0; i < tam; i++) {
+        tabuleiro[lV + i][cV] = 3;
+    }
+
+    int lD1 = 1, cD1 = 6;
+    for (int i = 0; i < tam; i++) {
+        tabuleiro[lD1 + i][cD1 + i] = 3;
+    }
+
+    int lD2 = 7, cD2 = 8;
+    for (int i = 0; i < tam; i++) {
+        tabuleiro[lD2 + i][cD2 - i] = 3;
+    }
+
+    printf("    0 1 2 3 4 5 6 7 8 9\n");
+    printf("    -------------------\n");
+    for (int i = 0; i < 10; i++) {
+        printf("%d | ", i);
+        for (int j = 0; j < 10; j++) {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
