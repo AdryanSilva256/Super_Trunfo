@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    // Dados das Cartas (Pré-cadastrados)
+    char nome1[] = "Brasil", nome2[] = "Japão";
+    unsigned long int pop1 = 214300000, pop2 = 125700000;
+    float area1 = 8515767.0, area2 = 377975.0;
+    float pib1 = 1.61, pib2 = 4.94; // Trilhões
+    int pontos1 = 82, pontos2 = 95;
+    float dens1 = (float)pop1 / area1, dens2 = (float)pop2 / area2;
+
+    int escolha1, escolha2;
+    float valor1_attr1, valor1_attr2, valor2_attr1, valor2_attr2;
+    char label1[30], label2[30];
+
+    printf("=== SUPER TRUNFO: DESAFIO FINAL ===\n\n");
+
+    // --- PRIMEIRO MENU ---
+    printf("Escolha o PRIMEIRO atributo:\n");
+    printf("1: População | 2: Área | 3: PIB | 4: Pontos Turísticos | 5: Densidade\n");
+    printf("Opção: ");
+    scanf("%d", &escolha1);
+
+    // --- SEGUNDO MENU (DINÂMICO) ---
+    printf("\nEscolha o SEGUNDO atributo (diferente do primeiro):\n");
+    if (escolha1 != 1) printf("1: População\n");
+    if (escolha1 != 2) printf("2: Área\n");
+    if (escolha1 != 3) printf("3: PIB\n");
+    if (escolha1 != 4) printf("4: Pontos Turísticos\n");
+    if (escolha1 != 5) printf("5: Densidade\n");
+    printf("Opção: ");
+    scanf("%d", &escolha2);
+
+    // Validação simples de duplicata
+    if (escolha1 == escolha2) {
+        printf("\nERRO: Você escolheu o mesmo atributo duas vezes. Reinicie o jogo.\n");
+        return 0;
+    }
+
+    // --- LÓGICA DE ATRIBUIÇÃO (Atributo 1) ---
+    switch (escolha1) {
+        case 1: valor1_attr1 = (float)pop1; valor2_attr1 = (float)pop2; strcpy(label1, "População"); break;
+        case 2: valor1_attr1 = area1; valor2_attr1 = area2; strcpy(label1, "Área"); break;
+        case 3: valor1_attr1 = pib1; valor2_attr1 = pib2; strcpy(label1, "PIB"); break;
+        case 4: valor1_attr1 = (float)pontos1; valor2_attr1 = (float)pontos2; strcpy(label1, "Pontos Turísticos"); break;
+        case 5: valor1_attr1 = dens1; valor2_attr1 = dens2; strcpy(label1, "Densidade"); break;
+        default: printf("Opção 1 inválida."); return 0;
+    }
+
+    // --- LÓGICA DE ATRIBUIÇÃO (Atributo 2) ---
+    switch (escolha2) {
+        case 1: valor1_attr2 = (float)pop1; valor2_attr2 = (float)pop2; strcpy(label2, "População"); break;
+        case 2: valor1_attr2 = area1; valor2_attr2 = area2; strcpy(label2, "Área"); break;
+        case 3: valor1_attr2 = pib1; valor2_attr2 = pib2; strcpy(label2, "PIB"); break;
+        case 4: valor1_attr2 = (float)pontos1; valor2_attr2 = (float)pontos2; strcpy(label2, "Pontos Turísticos"); break;
+        case 5: valor1_attr2 = dens1; valor2_attr2 = dens2; strcpy(label2, "Densidade"); break;
+        default: printf("Opção 2 inválida."); return 0;
+    }
+
+    // --- CÁLCULO DA SOMA (Tratando a Densidade) ---
+    // Se for densidade, usamos o inverso para a soma, pois menor é melhor
+    float soma1 = (escolha1 == 5 ? 1/valor1_attr1 : valor1_attr1) + (escolha2 == 5 ? 1/valor1_attr2 : valor1_attr2);
+    float soma2 = (escolha1 == 5 ? 1/valor2_attr1 : valor2_attr1) + (escolha2 == 5 ? 1/valor2_attr2 : valor2_attr2);
+
+    // --- EXIBIÇÃO DOS RESULTADOS ---
+    printf("\n--- RESULTADO DA RODADA ---\n");
+    printf("%s vs %s\n", nome1, nome2);
+    printf("Atributo 1 (%s): %.2f vs %.2f\n", label1, valor1_attr1, valor2_attr1);
+    printf("Atributo 2 (%s): %.2f vs %.2f\n", label2, valor1_attr2, valor2_attr2);
+    printf("SOMA TOTAL: %.2f vs %.2f\n", soma1, soma2);
+
+    // Determinação do Vencedor com Operador Ternário e If-Else
+    if (soma1 > soma2) {
+        printf("\nRESULTADO FINAL: %s VENCEU!\n", nome1);
+    } else if (soma2 > soma1) {
+        printf("\nRESULTADO FINAL: %s VENCEU!\n", nome2);
+    } else {
+        printf("\nRESULTADO FINAL: EMPATE!\n");
+    }
+
+    return 0;
+}
