@@ -4,23 +4,16 @@ int main() {
     // --- Variáveis de Controle ---
     int movimentoVertical = 2;   // Duas casas para baixo
     int movimentoHorizontal = 1; // Uma casa para a esquerda
-
-    // --- Movimentos Anteriores (Torre, Bispo, Rainha) ---
-    // (Mantenha o código que você já desenvolveu aqui)
-    
-    printf("\n"); // Linha em branco para separar o movimento do Cavalo
+   
+    printf("\n"); 
 
     // --- MOVIMENTAÇÃO DO CAVALO (Loops Aninhados) ---
     printf("Movimento do Cavalo:\n");
 
-    // Loop FOR externo: controla o deslocamento vertical (2 casas)
+    // Loop FOR externo controla o deslocamento vertical (2 casas)
     for (int i = 1; i <= movimentoVertical; i++) {
         printf("Baixo\n");
 
-        /* Loop WHILE aninhado: 
-           Este loop só será executado quando o movimento vertical terminar.
-           Usamos uma condição que depende do contador do loop externo.
-        */
         int j = 1;
         while (i == movimentoVertical && j <= movimentoHorizontal) {
             printf("Esquerda\n");
